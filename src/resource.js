@@ -26,6 +26,11 @@ var res = {
     HelloWorld_png : "res/HelloWorld.png",
     Poker_png : "res/poker.png",
     Poker_plist : "res/poker.plist",
+    bg_jpg : "res/bg.jpg",
+    back1 : "res/back_1.png",
+    back2 : "res/back_2.png",
+    scene : "res/scene.gif",
+    home : "res/home.png",
 };
 
 var g_resources = [];

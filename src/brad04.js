@@ -22,61 +22,57 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var data2 = 100;
 
-var Brad03Layer = cc.Layer.extend({
+var Brad04Layer = cc.Layer.extend({
     sprite:null,
-    vars: {
-        "name": "Brad",
-        "stage": 4,
-        "sound": false,
-    },
-    ctor:function () {
+    ctor:function (data) {
         this._super();
 
-        this.initMenu();
+        data2++;
+        data++;
+        var title = new cc.LabelTTF("Page2 Test:" + data2, 36);
+        title.attr({
+            x: cc.winSize.width /2,
+            y: cc.winSize.height *9/10
+        });
+        this.addChild(title);
+
+        this.initMemu();
 
         return true;
     },
 
-    initMenu: function () {
-        test1 = new cc.MenuItemFont("Test 1", this.doMenu1, this);
-        test2 = new cc.MenuItemFont("Test 2", this.doMenu2, this);
-        test3 = new cc.MenuItemFont("Test 3", this.doMenu3, this);
-        test4 = new cc.MenuItemFont("Test 4", this.doMenu4, this);
+    initMemu: function () {
+        var backItem = cc.MenuItemImage.create(
+            res.HelloWorld_png,
+            res.HelloWorld_png,
+            res.HelloWorld_png,
+            this.back,
+            this
+        );
 
-        menu = new cc.Menu(test1, test2, test3, test4);
-        menu.alignItemsVertically();
+        var menu = new cc.Menu(backItem);
         this.addChild(menu);
-
     },
-
-    doMenu1: function () {
-        cc.log("Test1");
-
-        cc.director.pushScene(new Test1Scene())
-
+    back: function () {
+        cc.log("back");
+        cc.director.popScene();
     },
-    doMenu2: function () {
-        cc.log("Test2");
-        cc.director.pushScene(new Brad04Scene(123, this.vars))
-    },
-    doMenu3: function () {
-        cc.log("Test3");
-        cc.director.pushScene(new Brad05Scene())
-    },
-    doMenu4: function () {
-        cc.log("Test4");
-        cc.director.pushScene(new Brad06Scene())
-    },
-
 });
 
-var Brad03Scene = cc.Scene.extend({
-    onEnter:function () {
+var Brad04Scene = cc.Scene.extend({
+    ctor: function(data, gamedata){
         this._super();
-        var layer = new Brad03Layer();
+
+        cc.log("ctor:" + data + ":" + gamedata.name);
+        var layer = new Brad04Layer(data);
         this.addChild(layer);
-    }
+
+    },
+
+    // onEnter:function (data) {
+    //     this._super();
+    //     cc.log("onEnter:" + data);
+    // }
 });
 

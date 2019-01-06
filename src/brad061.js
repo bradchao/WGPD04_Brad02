@@ -22,60 +22,64 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var data2 = 100;
 
-var Brad03Layer = cc.Layer.extend({
+var Brad061Layer = cc.Layer.extend({
     sprite:null,
-    vars: {
-        "name": "Brad",
-        "stage": 4,
-        "sound": false,
-    },
     ctor:function () {
         this._super();
+        var bg = new cc.Sprite(res.scene);
+        bg.attr({
+            x: cc.winSize.width/2,
+            y:cc.winSize.height/2
+        });
+        bg.scaleX = cc.winSize.width / bg.width;
+        bg.scaleY = cc.winSize.height / bg.height;
+        this.addChild(bg);
 
         this.initMenu();
+
 
         return true;
     },
 
     initMenu: function () {
-        test1 = new cc.MenuItemFont("Test 1", this.doMenu1, this);
-        test2 = new cc.MenuItemFont("Test 2", this.doMenu2, this);
-        test3 = new cc.MenuItemFont("Test 3", this.doMenu3, this);
-        test4 = new cc.MenuItemFont("Test 4", this.doMenu4, this);
+        var backItem = cc.MenuItemImage.create(
+            res.back1,
+            res.back2,
+            res.back1,
+            this.back,
+            this
+        );
+        var homeItem = cc.MenuItemImage.create(
+            res.home,
+            res.home,
+            res.home,
+            this.home,
+            this
+        );
 
-        menu = new cc.Menu(test1, test2, test3, test4);
+        var menu = new cc.Menu(backItem, homeItem);
         menu.alignItemsVertically();
         this.addChild(menu);
 
     },
 
-    doMenu1: function () {
-        cc.log("Test1");
+    back: function () {
+        cc.log("back");
+        cc.director.popScene();
+    },
 
-        cc.director.pushScene(new Test1Scene())
-
-    },
-    doMenu2: function () {
-        cc.log("Test2");
-        cc.director.pushScene(new Brad04Scene(123, this.vars))
-    },
-    doMenu3: function () {
-        cc.log("Test3");
-        cc.director.pushScene(new Brad05Scene())
-    },
-    doMenu4: function () {
-        cc.log("Test4");
-        cc.director.pushScene(new Brad06Scene())
+    home: function () {
+        cc.log("back");
+        cc.director.popToRootScene();
     },
 
 });
 
-var Brad03Scene = cc.Scene.extend({
+var Brad061Scene = cc.Scene.extend({
     onEnter:function () {
         this._super();
-        var layer = new Brad03Layer();
+        var layer = new Brad061Layer();
         this.addChild(layer);
     }
 });
